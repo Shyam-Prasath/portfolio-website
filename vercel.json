@@ -1,15 +1,23 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "assets/**/*", "use": "@vercel/static" },
+    { "src": "*.html", "use": "@vercel/static" }
   ],
   "routes": [
     {
+      "src": "/send-email",
+      "methods": ["POST"],
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*\\.(html|css|js|png|jpg|jpeg|webp|svg|woff|woff2))",
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/server.js"
+      "dest": "/index.html"
     }
   ]
 }
